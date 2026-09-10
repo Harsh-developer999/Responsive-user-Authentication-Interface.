@@ -1,0 +1,128 @@
+<html>
+    <head>
+        <title>Screen Login Project</title>
+        <link rel ="stylesheet" href ="./output.css">
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-900 flex justify-center items-center min-h-screen">
+        <div class="bg-gray-700 rounded-lg p-8 shadow-lg w-full max-w-sm" id ="loginpage">
+            <h2 class="text-white font-bold text-3xl text-center mb-4">LOGIN</h2>
+            <form  id="loginform">
+                <div class="mb-4">
+                    <label class ="block text-gray-300 mb-2 text-sm font-medium " for ="loginUsername">
+                        Username:
+                        </label>
+                        <input class="w-full px-3 py-2 bg-gray-600 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400 text-white" type ="text" id="loginUsername" placeholder="Enter The Username">
+                    <p id="loginUserError" class="text-red-500 text-xs mt-1" style="display: none;"></p>
+                    </div>
+                <div class="mb-4">
+                    <label class="block text-gray-300 mb-2 text-sm font-medium" for ="loginPassword">
+                        Password:
+                    </label>
+                   <input class="w-full px-3 py-2 bg-gray-600 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400 text-white" type ="password" id="loginPassword" placeholder="Enter The Password">
+                 <p id="loginPassError" class="text-red-500 text-xs mt-1" style="display: none;"></p>
+                </div>
+                <button class="w-full bg-blue-600 px-3 py-1 hover:bg-blue-700 rounded-md mb-2 text-white cursor-pointer transition-all duration-200" type="submit" class="submit">Submit</button>
+            </form>
+            <p class="text-sm text-center mt-4 text-gray-400">
+            Don't have an account?<a href="#" id ="tosignup" class="text-blue-400 hover:underline font-medium ml-1">signup</a></p>
+        </div>
+        <!-- //-------------------------------------------------------------------------------------// -->
+         <!-- //sign up page -->
+        <div class="bg-gray-700 rounded-lg p-8 shadow-lg w-full max-w-sm" id ="signupPage" style="display:none;">
+            <h2 class="text-white font-bold text-3xl text-center mb-4">signup</h2>
+            <form id="signupform">
+            <div class="mb-4">
+            <label class="block text-gray-300 mb-2 text-sm font-medium" for ="signupUsername">
+                Username:
+            </label>
+            <input class="w-full px-3 py-2 bg-gray-600 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400 text-white" type ="text" id="signupUsername" placeholder="Enter The Username">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-300 mb-2 text-sm font-medium" for ="signupPassword">
+                    Password:
+                </label>
+            <input class="w-full px-3 py-2 bg-gray-600 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400 text-white" type ="password" id="signupPassword" placeholder="Enter The Password">
+            </div>
+            <button class="w-full bg-blue-600 px-3 py-1 hover:bg-blue-700 rounded-md mb-2 text-white cursor-pointer transition-all duration-200" type="submit" class="submit">Register</button>
+            </form>
+            <p class ="text-gray-400 text-sm text-center mt-4">
+                Already have an account? <a href="#" id="tologin" class="text-blue-400 hover:underline font-medium ml-1">Login</a></p>
+        </div>
+        <script>
+            const loginPage = document.querySelector('#loginpage');
+            const signupPage = document.querySelector('#signupPage');
+            const tosignup = document.querySelector('#tosignup');
+            const tologin = document.querySelector('#tologin');
+
+            let registereduser ="";
+            let registeredpass ="";
+
+            tosignup.addEventListener('click', (e) => {
+                 e.preventDefault();
+                 loginPage.style.display = 'none';
+                 signupPage.style.display = 'block';
+            });
+
+            tologin.addEventListener('click', (e) => {
+                e.preventDefault();
+                 loginPage.style.display = 'block';
+                 signupPage.style.display = 'none';
+            });
+
+            const signupform = document.querySelector('#signupform');
+            signupform.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const passvalue = document.querySelector('#signupPassword').value;
+                if(passvalue.length < 6)
+            {
+                alert('Password must be at least 6 characters long');
+                return;
+            }
+                registereduser = document.querySelector('#signupUsername').value;
+                registeredpass = document.querySelector('#signupPassword').value;
+
+                alert('Registration Succesfull');
+                loginPage.style.display = 'block';
+                signupPage.style.display = 'none';
+            });
+
+            let currentloginuser ="";
+            let currentloginpass ="";
+
+             const loginform = document.querySelector('#loginform');
+            loginform.addEventListener('submit', (e) => {
+                e.preventDefault();
+                currentloginuser = document.querySelector('#loginUsername').value.trim();
+                currentloginpass = document.querySelector('#loginPassword').value.trim();
+          const userError = document.querySelector('#loginUserError');
+          const passError = document.querySelector('#loginPassError');
+    userError.style.display = 'none';
+    passError.style.display = 'none';
+    if (currentloginuser === "" || currentloginpass === "") {
+        if (currentloginuser === "") {
+            userError.style.display = 'block';
+            userError.innerText = "Username cannot be empty!";
+        }
+        if (currentloginpass === "") {
+            passError.style.display = 'block';
+            passError.innerText = "Password cannot be empty!";
+        }
+        return; 
+    }
+
+    if (currentloginuser !== registereduser) {
+        userError.style.display = 'block';
+        userError.innerText = "Username is incorrect!";
+    } else if (currentloginpass !== registeredpass) {
+        passError.style.display = 'block';
+        passError.innerText = "Password is incorrect!";
+    } else {
+        alert('Login Successful!');
+        window.location.href = "https://netflix.com"; 
+    }
+        });     
+
+        </script>
+    </body>
+</html>
